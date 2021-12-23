@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <div>
+            <input  id="input" type="text">
+            <button onclick="myfun()">在线预览</button>
+            <select id="type">
+                <option>请选择类型</option>
+                <option value="image">image</option>
+                <option value="pdf">pdf</option>
+                <option value="video">video</option>
+            </select>
+        </div>
+
+        <!-- image -->
+        <img id="image" src="">
+
+        <!-- video -->
+        <video id="video" autoplay="True"  style="width: 100%; height: auto;">
+            <source src="" type="video/mp4">
+        </video>
+
+        <!-- pdf -->
+        <iframe id="iframe"src="">
+            File couldn't be loaded. Please try Download instead
+        </iframe>
+
+    </body>
+    <script>
+        function myfun(){
+           
+            var input = document.getElementById("input").value;
+            var type = document.getElementById("type").value;
+
+            console.log(input)
+            console.log(type)
+
+            switch (type) {
+                case 'image':
+                    var image_dom = document.getElementById("image");
+                    image_dom.src = input;
+                    break;
+                case 'pdf':
+                    var iframe_dom = document.getElementById("iframe");
+                    iframe_dom.src = input
+                    break;
+                case 'video':
+                    var video_dom = document.getElementById("video");
+                    video_dom.src = input
+                    break;
+                default:
+                    alert(`Sorry, we are out of ${type}.`);
+            }
+        }
+    </script>
+</html>
