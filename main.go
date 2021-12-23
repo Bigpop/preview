@@ -4,22 +4,9 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"net"
+	"os"
 )
-
-type Url struct {
-    UrlPath string
-}
-
-func previewFunc(w http.ResponseWriter, r *http.Request) {
-
-	url := r.URL.Path[1:]
-	fmt.Println(url)
-	t := template.Must(template.ParseFiles("template.html"))
-	data := Url{
-		UrlPath: url,
-	}
-	t.Execute(w, data)
-}
 
 func templateHandler(w http.ResponseWriter, r *http.Request) { 
       w.Header().Set("Content-Type", "text/html; charset=utf-8") 
@@ -30,6 +17,16 @@ func templateHandler(w http.ResponseWriter, r *http.Request) {
      t.Execute(w, nil) 
 }
 func main() {
+	port := os.Args[1]
+ 	addrs, _ := net.InterfaceAddrs()
+	for _, address := range addrs {
+		if ipnet, ok := address.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+			if ipnet.IP.To4() != nil {
+				fmt.Println("http://"+ipnet.IP.String()+":"+port)
+			}
+
+		}
+	}
 	http.HandleFunc("/", templateHandler)
-    http.ListenAndServe(":8090", nil)
+    http.ListenAndServe(":"+port, nil)
 }
