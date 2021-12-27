@@ -3,33 +3,40 @@
     <head>
     </head>
     <body>
-        <div>
+        <div name="preview">
             <input  id="input" type="text">
-            <button onclick="myfun()">在线预览</button>
+            <button onclick="preview()">在线预览</button>
             <select id="type">
                 <option>请选择类型</option>
                 <option value="image">image</option>
                 <option value="pdf">pdf</option>
                 <option value="video">video</option>
             </select>
+            <!-- image -->
+            <img id="image" src="">
+            
+            <!-- video -->
+            <video id="video" autoplay="True" style="width: 100%; height: auto;">
+                <source src="" type="video/mp4">
+            </video>
+            
+            <!-- pdf -->
+            <iframe id="iframe" src="">
+                File couldn't be loaded. Please try Download instead
+            </iframe>
         </div>
 
-        <!-- image -->
-        <img id="image" src="">
 
-        <!-- video -->
-        <video id="video" autoplay="True"  style="width: 100%; height: auto;">
-            <source src="" type="video/mp4">
-        </video>
+        <div name="decode url">
+            <input id="input2" type="text">
+            <button onclick="decode_url()">url decode</button>
+            <p id="output2"></p>
+        </div>
 
-        <!-- pdf -->
-        <iframe id="iframe"src="">
-            File couldn't be loaded. Please try Download instead
-        </iframe>
 
     </body>
     <script>
-        function myfun(){
+        function preview(){
            
             var input = document.getElementById("input").value;
             var type = document.getElementById("type").value;
@@ -54,5 +61,15 @@
                     alert(`Sorry, we are out of ${type}.`);
             }
         }
+
+        function decode_url(){
+            var input = document.getElementById("input2").value;
+
+            console.log(input)
+
+            output_dom = document.getElementById("output2");
+            output_dom.innerHTML = decodeURI(input)
+        }
+   
     </script>
 </html>
